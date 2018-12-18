@@ -1,0 +1,11 @@
+service: alexa-memo
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  create:
+    handler: handler.create
+    events:
+    - alexaSkill: amzn1.ask.skill.47b025d6-a5d4-4bc4-89cf-ee86b274a71a

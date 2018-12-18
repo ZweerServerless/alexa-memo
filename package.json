@@ -1,0 +1,9 @@
+{
+  "name": "alexa-memo",
+  "version": "0.0.1",
+  "description": "Simple alexa skill",
+  "main": "handler.js",
+  "repository": "https://github.com/ZweerServerless/alexa-memo.git",
+  "author": "Zweer <n.olivieriachille@gmail.com>",
+  "license": "MIT"
+}
