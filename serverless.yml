@@ -1,11 +1,29 @@
 service: alexa-memo
 
+plugins:
+- serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs8.10
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: us-east-1
+  environment:
+    DYNAMODB_TABLE_MEMOS: ${self:service}-memos-${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_MEMOS}"
+
+
+custom:
+  defaultStage: dev
+  dev:
+    alexaSkillId: amzn1.ask.skill.47b025d6-a5d4-4bc4-89cf-ee86b274a71a
 
 functions:
   create:
-    handler: handler.create
+    handler: lambda/skill.handleSkill
     events:
-    - alexaSkill: amzn1.ask.skill.47b025d6-a5d4-4bc4-89cf-ee86b274a71a
+    - alexaSkill: ${self:custom.${self:provider.stage}.alexaSkillId}
